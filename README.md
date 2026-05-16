@@ -31,10 +31,10 @@ demo演示轻量方便，表格以组件形式完成
 
 ### 具体路径 (TODO List)
 
-1. [ ] **构建环境与基础框架**
+1. [x] **构建环境与基础框架**
    - 使用 Vite + React 初始化项目环境。
    - 配置基础文件结构。
-2. [ ] **组件结构拆分与数据流**
+2. [x] **组件结构拆分与数据流**
    - 拆分独立组件（`Sidebar`, `Tabs`, `Table`, `FilterDropdown` 等）。
    - 定义 Mock 数据并实现组件间的 Props 传递，完成基础数据渲染。
 3. [ ] **基础布局与样式（粗略对齐）**
@@ -49,21 +49,3 @@ demo演示轻量方便，表格以组件形式完成
    - 实现深色主题下的高亮状态和毛玻璃特效 (`backdrop-filter`)。
    - 处理细节图标 (SVG 内联) 与微调。效 (`backdrop-filter`)。
    - 处理细节图标 (SVG 内联) 与微调。
-
-
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
