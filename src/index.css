@@ -162,7 +162,8 @@ body {
 .table-header {
   display: flex;
   height: 48px;
-  align-items: center;
+  align-items: stretch;
+  /* 使 .th 占满 48px 高度以规范坐标系 */
   border-bottom: 0.5px solid #434343;
   z-index: 100;
   /* 提升表头层级，防止下拉框被 tbody 遮挡导致无法交互 */
@@ -261,9 +262,10 @@ body {
 ================================== */
 .filter-dropdown {
   position: absolute;
-  top: 36px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 52px;
+  /* 表头高 48px + 顶部偏移 4px = 52px */
+  left: 51%;
+  transform: translateX(-51%);
   width: 216px;
   background-color: rgba(0, 0, 0, 0.2);
   /* 进一步增加通透感 */
