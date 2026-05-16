@@ -4,7 +4,6 @@ import searchIcon from '../assets/icon_search.png';
 const FilterDropdown = ({ options, selectedOptions, onToggleOption, onClose }) => {
   const [searchText, setSearchText] = useState('');
 
-  // 1. 搜索过滤选项逻辑
   const filteredOptions = options.filter(opt => 
     opt.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -27,9 +26,13 @@ const FilterDropdown = ({ options, selectedOptions, onToggleOption, onClose }) =
             className="option-item"
             onClick={() => onToggleOption(option)}
           >
-            <span className="checkbox">
-              {selectedOptions.includes(option) ? '☑' : '☐'}
-            </span>
+            <div className={`checkbox ${selectedOptions.includes(option) ? 'checked' : ''}`}>
+              {selectedOptions.includes(option) && (
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 4L3.5 6.5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
             <span className="option-text">{option}</span>
           </div>
         ))}

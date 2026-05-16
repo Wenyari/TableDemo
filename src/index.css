@@ -5,13 +5,14 @@
 }
 
 body {
-  font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background-color: #2c2c2c;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   color: #fff;
+  -webkit-font-smoothing: antialiased;
 }
 
 .app-container {
@@ -21,7 +22,7 @@ body {
   position: relative;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  display: flex; /* 关键：左右分栏结构 */
+  display: flex;
 }
 
 /* ==================================
@@ -31,7 +32,10 @@ body {
   width: 80px;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
-  border-right: 1px solid rgba(255, 255, 255, 0.05); /* 占位边框，稍后细化 */
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  /* Figma 10:198 */
+  z-index: 1;
 }
 
 /* ==================================
@@ -41,7 +45,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding-left: 24px; /* 按照 Figma，80px 左边栏，内部内容从 104px 开始，差值 24px */
+  padding-left: 24px;
 }
 
 /* ==================================
@@ -56,9 +60,16 @@ body {
   height: 64px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
+  padding-bottom: 12px;
   gap: 12px;
-  padding-top: 10px;
+}
+
+.title-text {
+  color: #FFFFFF;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
 }
 
 .title-underline {
@@ -71,7 +82,6 @@ body {
   margin-top: 16px;
   display: flex;
   height: 40px;
-  position: relative;
 }
 
 .tab-item {
@@ -81,6 +91,30 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 20px;
+  position: relative;
+  transition: background-color 0.2s, color 0.2s;
+
+  /* 默认非激活状态 (订单列表) */
+  color: #969696;
+  backdrop-filter: blur(27.18px);
+}
+
+.tab-item.active {
+  /* 激活状态 (订单统计) */
+  color: #FFFFFF;
+  backdrop-filter: none;
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: 4px;
+  width: 70px;
+  height: 2px;
+  background-color: #fff;
+  border-radius: 1px;
 }
 
 /* ==================================
@@ -96,6 +130,32 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
+  /* 为纵向分割线做锚点 */
+}
+
+/* 表格内两条贯穿的纵向分割线 */
+.table-container::before,
+.table-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 209px;
+  /* 内部高度 */
+  border-left: 0.5px solid #434343;
+  z-index: 0;
+}
+
+.table-container::before {
+  left: 160px;
+}
+
+.table-container::after {
+  left: 370px;
+}
+
+.table-header,
+.table-row {
+  position: relative;
 }
 
 .table-header {
@@ -103,11 +163,15 @@ body {
   height: 48px;
   align-items: center;
   border-bottom: 0.5px solid #434343;
+  z-index: 100;
+  /* 提升表头层级，防止下拉框被 tbody 遮挡导致无法交互 */
 }
 
 .table-body {
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 10;
 }
 
 .table-row {
@@ -117,26 +181,77 @@ body {
   border-bottom: 0.5px solid #434343;
 }
 
-/* 占位列宽 */
-.th, .td {
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.th {
+  color: #969696;
+  font-size: 14px;
+  line-height: 16px;
   display: flex;
   align-items: center;
 }
 
-.col-name { width: 160px; padding-left: 20px; }
-.col-type { width: 130px; position: relative; }
-.col-contact { width: 162px; position: relative; }
+.td {
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+}
 
+.td.col-name {
+  font-size: 12px;
+}
+
+.td.col-type,
+.td.col-contact {
+  font-size: 14px;
+  justify-content: center;
+}
+
+.col-name {
+  width: 160px;
+  padding-left: 20px;
+  justify-content: flex-start;
+}
+
+.col-type {
+  width: 210px;
+  position: relative;
+  justify-content: center;
+  text-align: center;
+}
+
+.col-contact {
+  width: 202px;
+  position: relative;
+  justify-content: center;
+  text-align: center;
+}
+
+/* 筛选表头按钮容器 */
 .th-content {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
   cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
 .icon-funnel {
   width: 16px;
   height: 16px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+/* 交互中的高亮态：使用 filter 将图标变为纯白 (#fff) */
+.th-content:hover .icon-funnel,
+.th-content.active .icon-funnel {
+  opacity: 1;
+  filter: brightness(0) invert(1);
 }
 
 /* ==================================
@@ -144,25 +259,31 @@ body {
 ================================== */
 .filter-dropdown {
   position: absolute;
-  top: 40px; /* 相对于 col-type 向下偏移 */
-  left: 0;
+  top: 36px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 216px;
-  height: 186px;
-  background-color: rgba(0, 0, 0, 0.8); /* 占位色 */
+  background-color: rgba(0, 0, 0, 0.2);
+  /* 进一步增加通透感 */
   border: 1px solid rgba(67, 67, 67, 0.5);
+  -webkit-backdrop-filter: blur(12px);
+  /* 保持 Webkit 兼容性以确保滤镜生效 */
+  backdrop-filter: blur(12px);
+  /* Figma 19:207 */
   border-radius: 12px;
   padding: 8px;
   z-index: 10;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  cursor: default;
 }
 
 .search-box {
   height: 32px;
   display: flex;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   border: 0.5px solid #434343;
   border-radius: 6px;
   padding: 0 12px;
@@ -172,6 +293,8 @@ body {
 .icon-search {
   width: 16px;
   height: 16px;
+  filter: brightness(0) invert(1);
+  /* 强制纯白 */
 }
 
 .search-box input {
@@ -196,6 +319,39 @@ body {
   height: 32px;
   display: flex;
   align-items: center;
+  padding: 0 8px;
   gap: 8px;
   cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.option-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.checkbox {
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+  color: transparent;
+  /* SVG 默认不可见 */
+}
+
+.checkbox.checked {
+  background-color: #fff;
+  border-color: #fff;
+  color: #101010;
+  /* 选中时 SVG 勾号变深色 */
+}
+
+.option-text {
+  color: #FFFFFF;
+  font-size: 12px;
+  line-height: 16px;
 }

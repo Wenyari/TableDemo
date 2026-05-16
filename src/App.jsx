@@ -13,7 +13,7 @@ const mockTableData = [
 ];
 
 function App() {
-  const [activeTab, setActiveTab] = useState('订单列表');
+  const [activeTab, setActiveTab] = useState('订单统计');
 
   return (
     <div className="app-container">

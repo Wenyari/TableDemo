@@ -56,7 +56,7 @@ const Table = ({ data }) => {
         <div className="th col-name">名称</div>
         
         <div className="th col-type">
-          <div className="th-content" onClick={(e) => toggleFilter(e, 'type')}>
+          <div className={`th-content ${activeFilterColumn === 'type' ? 'active' : ''}`} onClick={(e) => toggleFilter(e, 'type')}>
             类型 <img src={filterIcon} alt="filter" className="icon-funnel" />
           </div>
           {activeFilterColumn === 'type' && (
@@ -70,7 +70,7 @@ const Table = ({ data }) => {
         </div>
         
         <div className="th col-contact">
-          <div className="th-content" onClick={(e) => toggleFilter(e, 'contact')}>
+          <div className={`th-content ${activeFilterColumn === 'contact' ? 'active' : ''}`} onClick={(e) => toggleFilter(e, 'contact')}>
             联系方式 <img src={filterIcon} alt="filter" className="icon-funnel" />
           </div>
           {activeFilterColumn === 'contact' && (
