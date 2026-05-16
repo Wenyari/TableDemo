@@ -1,0 +1,66 @@
+.top-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-title {
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 12px;
+  gap: 12px;
+}
+
+.title-text {
+  color: #FFFFFF;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.title-underline {
+  width: 572px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tabs-container {
+  margin-top: 16px;
+  display: flex;
+  height: 40px;
+}
+
+.tab-item {
+  width: 83px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 20px;
+  position: relative;
+  transition: background-color 0.2s, color 0.2s;
+
+  /* 默认非激活状态 (订单列表) */
+  color: #969696;
+  backdrop-filter: blur(27.18px);
+}
+
+.tab-item.active {
+  /* 激活状态 (订单统计) */
+  color: #FFFFFF;
+  backdrop-filter: none;
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: 4px;
+  width: 70px;
+  height: 2px;
+  background-color: #fff;
+  border-radius: 1px;
+  transition: transform 0.3s ease;
+}

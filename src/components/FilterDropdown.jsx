@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import searchIcon from '../assets/icon_search.png';
+import './FilterDropdown.css';
 
 const FilterDropdown = ({ options, selectedOptions, onToggleOption, onClose }) => {
   const [searchText, setSearchText] = useState('');

@@ -1,0 +1,9 @@
+.sidebar {
+  width: 80px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  /* Figma 10:198 */
+  z-index: 1;
+}

@@ -1,0 +1,134 @@
+.table-container {
+  margin-top: 16px;
+  width: 572px;
+  height: 211px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(67, 67, 67, 0.5);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* 为纵向分割线做锚点 */
+}
+
+/* 表格内两条贯穿的纵向分割线 */
+.table-container::before,
+.table-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 209px;
+  /* 内部高度 */
+  border-left: 0.5px solid #434343;
+  z-index: 0;
+}
+
+.table-container::before {
+  left: 160px;
+}
+
+.table-container::after {
+  left: 370px;
+}
+
+.table-header,
+.table-row {
+  position: relative;
+}
+
+.table-header {
+  display: flex;
+  height: 48px;
+  align-items: stretch; /* 使 .th 占满 48px 高度以规范坐标系 */
+  border-bottom: 0.5px solid #434343;
+  z-index: 100;
+  /* 提升表头层级，防止下拉框被 tbody 遮挡导致无法交互 */
+}
+
+.table-body {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 10;
+}
+
+.table-row {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  border-bottom: 0.5px solid #434343;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.th {
+  color: #969696;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.td {
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+}
+
+.td.col-name {
+  font-size: 12px;
+}
+
+.td.col-type,
+.td.col-contact {
+  font-size: 14px;
+  justify-content: center;
+}
+
+.col-name {
+  width: 160px;
+  padding-left: 20px;
+  justify-content: flex-start;
+}
+
+.col-type {
+  width: 210px;
+  position: relative;
+  justify-content: center;
+  text-align: center;
+}
+
+.col-contact {
+  width: 202px;
+  position: relative;
+  justify-content: center;
+  text-align: center;
+}
+
+/* 筛选表头按钮容器 */
+.th-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.icon-funnel {
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+  transition: opacity 0.2s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 交互中的高亮态：微动效弹跳 + 纯白滤镜 */
+.th-content:hover .icon-funnel,
+.th-content.active .icon-funnel {
+  opacity: 1;
+  filter: brightness(0) invert(1);
+  transform: translateY(0.5px) scale(1);
+}

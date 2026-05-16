@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import FilterDropdown from './FilterDropdown';
 import filterIcon from '../assets/icon_filter.png';
+import './Table.css';
 
 const Table = ({ data }) => {
   // activeFilterColumn 可以是 'type', 'contact' 或者 null
