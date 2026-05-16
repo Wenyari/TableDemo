@@ -6,7 +6,7 @@
 
 body {
   font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background-color: #2c2c2c; /* 外层背景稍微亮一点，用来区分深色的设计稿容器 */
+  background-color: #2c2c2c;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,12 +14,153 @@ body {
   color: #fff;
 }
 
-/* 核心容器 100%还原 Figma 尺寸 */
 .app-container {
   width: 736px;
   height: 407px;
   background-color: #101010;
   position: relative;
-  overflow: hidden; /* 防止毛玻璃超出 */
+  overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex; /* 关键：左右分栏结构 */
+}
+
+/* ==================================
+   Sidebar
+================================== */
+.sidebar {
+  width: 80px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-right: 1px solid rgba(255, 255, 255, 0.05); /* 占位边框，稍后细化 */
+}
+
+/* ==================================
+   Main Content Layout
+================================== */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: 24px; /* 按照 Figma，80px 左边栏，内部内容从 104px 开始，差值 24px */
+}
+
+/* ==================================
+   Top Nav (Header & Tabs)
+================================== */
+.top-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-title {
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 10px;
+}
+
+.title-underline {
+  width: 572px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tabs-container {
+  margin-top: 16px;
+  display: flex;
+  height: 40px;
+  position: relative;
+}
+
+.tab-item {
+  width: 83px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* ==================================
+   Table Layout
+================================== */
+.table-container {
+  margin-top: 16px;
+  width: 572px;
+  height: 211px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(67, 67, 67, 0.5);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.table-header {
+  display: flex;
+  height: 48px;
+  align-items: center;
+  border-bottom: 0.5px solid #434343;
+}
+
+.table-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-row {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  border-bottom: 0.5px solid #434343;
+}
+
+/* 占位列宽 */
+.th, .td {
+  display: flex;
+  align-items: center;
+}
+
+.col-name { width: 160px; padding-left: 20px; }
+.col-type { width: 130px; position: relative; cursor: pointer; }
+.col-contact { width: 162px; position: relative; cursor: pointer; }
+
+/* ==================================
+   Filter Dropdown Layout
+================================== */
+.filter-dropdown {
+  position: absolute;
+  top: 40px; /* 相对于 col-type 向下偏移 */
+  left: 0;
+  width: 216px;
+  height: 186px;
+  background-color: rgba(0, 0, 0, 0.8); /* 占位色 */
+  border: 1px solid rgba(67, 67, 67, 0.5);
+  border-radius: 12px;
+  padding: 8px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.search-box {
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.option-item {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
 }
